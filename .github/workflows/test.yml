@@ -17,6 +17,7 @@ jobs:
           working-directory: ${{ github.workspace }}/testdata/terraform/
           reporter: github-check
           level: info
+          terrascan-iac-type: terraform
 
   test-pr-check:
     if: github.event_name == 'pull_request'
@@ -30,6 +31,7 @@ jobs:
           working-directory: ${{ github.workspace }}/testdata/terraform/
           reporter: github-pr-check
           level: warning
+          terrascan-iac-type: terraform
 
   test-pr-review:
     if: "github.event_name == 'pull_request'"
@@ -44,7 +46,7 @@ jobs:
           working-directory: ${{ github.workspace }}/testdata/terraform/
           reporter: github-pr-review
           level: error
-          reviewdog-flags: -filter-mode=file -fail-on-error
+          terrascan-iac-type: terraform
       - name: check the exit code
         if: ${{ !success() }}
         run: echo 'The previous step should fail' && exit 1
