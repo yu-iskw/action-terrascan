@@ -1,4 +1,4 @@
-# action-composite-template
+# action-terrascan
 
 <!-- TODO: replace reviewdog/action-composite-template with your repo name -->
 [![Test](https://github.com/reviewdog/action-composite-template/workflows/Test/badge.svg)](https://github.com/reviewdog/action-composite-template/actions?query=workflow%3ATest)
