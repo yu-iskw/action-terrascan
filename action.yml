@@ -113,10 +113,16 @@ runs:
         # https://github.community/t/input-variable-name-is-not-available-in-composite-run-steps/127611
         GITHUB_TOKEN: ${{ inputs.github_token }}
         WORKING_DIRECTORY: ${{ inputs.working-directory }}
+        ONLY_WARN: ${{ inputs.only-warn }}
+
         REVIEWDOG_LEVEL: ${{ inputs.level }}
         REVIEWDOG_REPORTER: ${{ inputs.reporter }}
         REVIEWDOG_FILTER_MODE: ${{ inputs.filter-mode }}
         REVIEWDOG_FAIL_ON_ERROR: ${{ inputs.fail-on-error }}
+
+        TERRASCAN_VERSION: ${{ inputs.terrascan-version }}
+        TERRASCAN_PLATFORM: ${{ inputs.terrascan-platform }}
+
         TERRASCAN_CONFIG_PATH: ${{ inputs.terrascan-config-path }}
         TERRASCAN_LOG_LEVEL: ${{ inputs.terrascan-log-level }}
         TERRASCAN_IAC_DIR: ${{ inputs.terrascan-iac-dir }}
@@ -128,7 +134,7 @@ runs:
         TERRASCAN_SEVERITY: ${{ inputs.terrascan-severity }}
         TERRASCAN_SKIP_RULES: ${{ inputs.terrascan-skip-rules }}
         TERRASCAN_VERBOSE: ${{ inputs.terrascan-verbose }}
-        ONLY_WARN: ${{ inputs.only-warn }}
+
 
 # Ref: https://haya14busa.github.io/github-action-brandings/
 branding:
