@@ -44,7 +44,7 @@ echo '::group::Scan ...'
     > "$scan_results"
 
   terrascan_exit_code=$?
-  echo "::set-output name=terrascan-results::$(cat < scan_results | jq -r -c '.')" # Convert to a single line
+  echo "::set-output name=terrascan-results::$(cat < "$scan_results" | jq -r -c '.')" # Convert to a single line
   echo "::set-output name=terrascan-exit-code::${terrascan_exit_code}"
 echo '::endgroup::'
 
