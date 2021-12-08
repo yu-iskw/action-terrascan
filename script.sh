@@ -29,17 +29,17 @@ echo '::group::Scan ...'
   # shellcheck-ignore: SC1009
   terrascan scan \
       --output json \
-      $(if [[ "x${TERRASCAN_CONFIG_PATH}" != "x" ]] ; then echo "--config-PATH ${TERRASCAN_CONFIG_PATH}" ; FI) \
-      $(if [[ "x${TERRASCAN_LOG_LEVEL}"   != "x" ]] ; then echo "--log-level ${TERRASCAN_LOG_LEVEL}" ; FI) \
-      $(if [[ "x${TERRASCAN_IAC_DIR}"     != "x" ]] ; then echo "--iac-dir ${TERRASCAN_IAC_DIR}" ; FI) \
-      $(if [[ "x${TERRASCAN_IAC_TYPE}"    != "x" ]] ; then echo "--iac-type ${TERRASCAN_IAC_TYPE}" ; FI) \
-      $(if [[ "x${TERRASCAN_POLICY_TYPE}" != "x" ]] ; then echo "--policy-type ${TERRASCAN_POLICY_TYPE}" ; FI) \
-      $(if [[ "x${TERRASCAN_REMOTE_TYPE}" != "x" ]] ; then echo "--remote-type ${TERRASCAN_REMOTE_TYPE}" ; FI) \
-      $(if [[ "x${TERRASCAN_REMOTE_URL}"  != "x" ]] ; then echo "--remote-url ${TERRASCAN_REMOTE_URL}" ; FI) \
-      $(if [[ "x${TERRASCAN_SCAN_RULES}"  != "x" ]] ; then echo "--scan-rules ${TERRASCAN_SCAN_RULES}" ; FI) \
-      $(if [[ "x${TERRASCAN_SEVERITY}"    != "x" ]] ; then echo "--severity ${TERRASCAN_SEVERITY}" ; FI) \
-      $(if [[ "x${TERRASCAN_SKIP_RULES}"  != "x" ]] ; then echo "--skip-rules ${TERRASCAN_SKIP-RULES}" ; FI) \
-      $(if [[ "x${TERRASCAN_USE_COLORS}"  != "x" ]] ; then echo "--use-colors ${TERRASCAN_USE_COLORS}" ; FI) \
+      $(if [[ "x${TERRASCAN_CONFIG_PATH}" != "x" ]] ; then echo "--config-PATH ${TERRASCAN_CONFIG_PATH}" ; fi) \
+      $(if [[ "x${TERRASCAN_LOG_LEVEL}"   != "x" ]] ; then echo "--log-level ${TERRASCAN_LOG_LEVEL}" ; fi) \
+      $(if [[ "x${TERRASCAN_IAC_DIR}"     != "x" ]] ; then echo "--iac-dir ${TERRASCAN_IAC_DIR}" ; fi) \
+      $(if [[ "x${TERRASCAN_IAC_TYPE}"    != "x" ]] ; then echo "--iac-type ${TERRASCAN_IAC_TYPE}" ; fi) \
+      $(if [[ "x${TERRASCAN_POLICY_TYPE}" != "x" ]] ; then echo "--policy-type ${TERRASCAN_POLICY_TYPE}" ; fi) \
+      $(if [[ "x${TERRASCAN_REMOTE_TYPE}" != "x" ]] ; then echo "--remote-type ${TERRASCAN_REMOTE_TYPE}" ; fi) \
+      $(if [[ "x${TERRASCAN_REMOTE_URL}"  != "x" ]] ; then echo "--remote-url ${TERRASCAN_REMOTE_URL}" ; fi) \
+      $(if [[ "x${TERRASCAN_SCAN_RULES}"  != "x" ]] ; then echo "--scan-rules ${TERRASCAN_SCAN_RULES}" ; fi) \
+      $(if [[ "x${TERRASCAN_SEVERITY}"    != "x" ]] ; then echo "--severity ${TERRASCAN_SEVERITY}" ; fi) \
+      $(if [[ "x${TERRASCAN_SKIP_RULES}"  != "x" ]] ; then echo "--skip-rules ${TERRASCAN_SKIP-RULES}" ; fi) \
+      $(if [[ "x${TERRASCAN_USE_COLORS}"  != "x" ]] ; then echo "--use-colors ${TERRASCAN_USE_COLORS}" ; fi) \
       $(if [[ "x${TERRASCAN_VERBOSE}"     != "x" ]] ; then echo "--verbose" ; FI) \
     > "$scan_results"
 
