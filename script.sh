@@ -26,7 +26,6 @@ echo '::group::Scan ...'
   set +Eeuo pipefail
 
   scan_results="terrascan.results.json"
-  # shellcheck-ignore: SC1009
   terrascan scan \
       --output json \
       $(if [[ "x${TERRASCAN_CONFIG_PATH}" != "x" ]] ; then echo "--config-PATH ${TERRASCAN_CONFIG_PATH}" ; fi) \
@@ -40,7 +39,7 @@ echo '::group::Scan ...'
       $(if [[ "x${TERRASCAN_SEVERITY}"    != "x" ]] ; then echo "--severity ${TERRASCAN_SEVERITY}" ; fi) \
       $(if [[ "x${TERRASCAN_SKIP_RULES}"  != "x" ]] ; then echo "--skip-rules ${TERRASCAN_SKIP-RULES}" ; fi) \
       $(if [[ "x${TERRASCAN_USE_COLORS}"  != "x" ]] ; then echo "--use-colors ${TERRASCAN_USE_COLORS}" ; fi) \
-      $(if [[ "x${TERRASCAN_VERBOSE}"     != "x" ]] ; then echo "--verbose" ; FI) \
+      $(if [[ "x${TERRASCAN_VERBOSE}"     != "x" ]] ; then echo "--verbose" ; fi) \
     > "$scan_results"
 
   terrascan_exit_code=$?
