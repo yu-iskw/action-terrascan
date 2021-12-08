@@ -14,29 +14,25 @@ inputs:
     default: "latest"
     required: false
   ### Flags for reviewdog ###
-  reviewdog-level:
+  level:
     description: 'Report level for reviewdog [info,warning,error]'
     default: 'error'
     required: false
-  reviewdog-reporter:
+  reporter:
     description: 'Reporter of reviewdog command [github-check,github-pr-review].'
     default: 'github-check'
     required: false
-  reviewdog-filter-mode:
+  filter-mode:
     description: |
       Filtering mode for the reviewdog command [added,diff_context,file,nofilter].
       Default is added.
     default: 'added'
     required: false
-  reviewdog-fail-on-error:
+  fail-on-error:
     description: |
       Exit code for reviewdog when errors are found [true,false]
       Default is `false`.
     default: 'false'
-    required: false
-  reviewdog-flags:
-    description: 'Additional reviewdog flags'
-    default: ''
     required: false
   ### install terrascan
   ### SEE https://github.com/accurics/terrascan/releases
@@ -117,10 +113,10 @@ runs:
         # https://github.community/t/input-variable-name-is-not-available-in-composite-run-steps/127611
         GITHUB_TOKEN: ${{ inputs.github_token }}
         WORKING_DIRECTORY: ${{ inputs.working-directory }}
-        REVIEWDOG_LEVEL: ${{ inputs.reviewdog-level }}
-        REVIEWDOG_REPORTER: ${{ inputs.reviewdog-reporter }}
-        REVIEWDOG_FILTER_MODE: ${{ inputs.reviewdog-filter-mode }}
-        REVIEWDOG_FAIL_ON_ERROR: ${{ inputs.reviewdog-fail-on-error }}
+        REVIEWDOG_LEVEL: ${{ inputs.level }}
+        REVIEWDOG_REPORTER: ${{ inputs.reporter }}
+        REVIEWDOG_FILTER_MODE: ${{ inputs.filter-mode }}
+        REVIEWDOG_FAIL_ON_ERROR: ${{ inputs.fail-on-error }}
         TERRASCAN_CONFIG_PATH: ${{ inputs.terrascan-config-path }}
         TERRASCAN_LOG_LEVEL: ${{ inputs.terrascan-log-level }}
         TERRASCAN_IAC_DIR: ${{ inputs.terrascan-iac-dir }}
