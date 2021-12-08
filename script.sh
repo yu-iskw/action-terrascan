@@ -26,6 +26,7 @@ echo '::group::Scan ...'
   set +Eeuo pipefail
 
   scan_results="terrascan.results.json"
+  # shellcheck disable=SC2046
   terrascan scan \
       --output json \
       $(if [[ "x${TERRASCAN_CONFIG_PATH}" != "x" ]] ; then echo "--config-PATH ${TERRASCAN_CONFIG_PATH}" ; fi) \
@@ -43,7 +44,7 @@ echo '::group::Scan ...'
     > "$scan_results"
 
   terrascan_exit_code=$?
-  echo "::set-output name=terrascan-results::$(cat scan_results | jq -r -c '.')" # Convert to a single line
+  echo "::set-output name=terrascan-results::$(cat < scan_results | jq -r -c '.')" # Convert to a single line
   echo "::set-output name=terrascan-exit-code::${terrascan_exit_code}"
 echo '::endgroup::'
 
@@ -52,15 +53,14 @@ echo '::group::reviewdog...'
   # Allow failures now, as reviewdog handles them
   set +Eeuo pipefail
 
-  cat "$scan_results" \
+  cat < "$scan_results" \
     | jq -r -f "${GITHUB_ACTION_PATH}/to-rdjson.jq" \
     |  reviewdog -f=rdjson \
         -name="terrascan" \
         -reporter="${REVIEWDOG_REPORTER}" \
         -level="${REVIEWDOG_LEVEL}" \
         -fail-on-error="${REVIEW_DOG_FAIL_ON_ERROR}" \
-        -filter-mode="${INPUT_FILTER_MODE}" \
-        ${REVIEWDOG_FLAGS}
+        -filter-mode="${INPUT_FILTER_MODE}"
 
   reviewdog_return_code="${PIPESTATUS[2]}"
   echo "::set-output name=reviewdog-return-code::${reviewdog_return_code}"
