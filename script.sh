@@ -26,6 +26,7 @@ echo '::group::Scan ...'
   set +Eeuo pipefail
 
   scan_results="terrascan.results.json"
+  # shellcheck-ignore: SC1009
   terrascan scan \
       --output json \
       $(if [[ "x${TERRASCAN_CONFIG_PATH}" != "x" ]] ; then echo "--config-PATH ${TERRASCAN_CONFIG_PATH}" ; FI) \
