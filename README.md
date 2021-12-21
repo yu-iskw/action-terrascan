@@ -1,116 +1,157 @@
 # action-terrascan
 
-<!-- TODO: replace reviewdog/action-composite-template with your repo name -->
-[![Test](https://github.com/reviewdog/action-composite-template/workflows/Test/badge.svg)](https://github.com/reviewdog/action-composite-template/actions?query=workflow%3ATest)
-[![reviewdog](https://github.com/reviewdog/action-composite-template/workflows/reviewdog/badge.svg)](https://github.com/reviewdog/action-composite-template/actions?query=workflow%3Areviewdog)
-[![depup](https://github.com/reviewdog/action-composite-template/workflows/depup/badge.svg)](https://github.com/reviewdog/action-composite-template/actions?query=workflow%3Adepup)
-[![release](https://github.com/reviewdog/action-composite-template/workflows/release/badge.svg)](https://github.com/reviewdog/action-composite-template/actions?query=workflow%3Arelease)
-[![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/reviewdog/action-composite-template?logo=github&sort=semver)](https://github.com/reviewdog/action-composite-template/releases)
+<!-- TODO: replace yu-iskw/action-terrascan with your repo name -->
+[![Test](https://github.com/yu-iskw/action-terrascan/workflows/Test/badge.svg)](https://github.com/yu-iskw/action-terrascan/actions?query=workflow%3ATest)
+[![reviewdog](https://github.com/yu-iskw/action-terrascan/workflows/reviewdog/badge.svg)](https://github.com/yu-iskw/action-terrascan/actions?query=workflow%3Areviewdog)
+[![depup](https://github.com/yu-iskw/action-terrascan/workflows/depup/badge.svg)](https://github.com/yu-iskw/action-terrascan/actions?query=workflow%3Adepup)
+[![release](https://github.com/yu-iskw/action-terrascan/workflows/release/badge.svg)](https://github.com/yu-iskw/action-terrascan/actions?query=workflow%3Arelease)
+[![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/yu-iskw/action-terrascan?logo=github&sort=semver)](https://github.com/yu-iskw/action-terrascan/releases)
 [![action-bumpr supported](https://img.shields.io/badge/bumpr-supported-ff69b4?logo=github&link=https://github.com/haya14busa/action-bumpr)](https://github.com/haya14busa/action-bumpr)
 
-![github-pr-review demo](https://user-images.githubusercontent.com/3797062/73162963-4b8e2b00-4132-11ea-9a3f-f9c6f624c79f.png)
-![github-pr-check demo](https://user-images.githubusercontent.com/3797062/73163032-70829e00-4132-11ea-8481-f213a37db354.png)
+![github-pr-review demo](./docs/images/example-comment.png)
 
-This is a template repository for
-[reviewdog](https://github.com/reviewdog/reviewdog) action with release
-automation based on [action composition](https://docs.github.com/en/actions/creating-actions/creating-a-composite-action).
-Click `Use this template` button to create your reviewdog action :dog:!
-
-If you want to create your own reviewdog action from scratch without using this
-template, please check and copy release automation flow.
-It's important to manage release workflow and sync reviewdog version for all
-reviewdog actions.
-
-This repo contains a sample action to run [misspell](https://github.com/client9/misspell).
+This is a github action to scan IaC files with terrascan and reviewdogs.
 
 ## Input
+Please see [action.yml](./action.yml) as well.
+The documentation can be outdated as we update the action.
 
-<!-- TODO: update -->
 ```yaml
 inputs:
   github_token:
     description: 'GITHUB_TOKEN'
-    default: '${{ github.token }}'
-  workdir:
+    required: true
+  working-directory:
     description: 'Working directory relative to the root directory.'
-    default: '.'
+    required: true
+  ### reviewdog ###
+  reviewdog_version:
+    description: "reviewdog version"
+    default: "latest"
+    required: false
   ### Flags for reviewdog ###
   level:
     description: 'Report level for reviewdog [info,warning,error]'
     default: 'error'
+    required: false
   reporter:
-    description: 'Reporter of reviewdog command [github-check,github-pr-review,github-pr-check].'
+    description: 'Reporter of reviewdog command [github-check,github-pr-review].'
     default: 'github-check'
-  filter_mode:
+    required: false
+  filter-mode:
     description: |
       Filtering mode for the reviewdog command [added,diff_context,file,nofilter].
       Default is added.
     default: 'added'
-  fail_on_error:
+    required: false
+  fail-on-error:
     description: |
       Exit code for reviewdog when errors are found [true,false]
       Default is `false`.
     default: 'false'
-  reviewdog_flags:
-    description: 'Additional reviewdog flags'
+    required: false
+  ### install terrascan
+  ### SEE https://github.com/accurics/terrascan/releases
+  terrascan-platform:
+    description: "The platform of the terrascan binary (e.g. 'Linux_i386', 'Linux_x86_64')"
+    required: false
+    default: "Linux_i386"
+  terrascan-version:
+    description: "The version of terrascan downloaded from the GitHub repository"
+    required: false
+    default: "latest"
+  ### terrascan init
+  ### SEE https://github.com/accurics/terrascan/releases
+  terrascan-config-path:
+    description: 'config file path'
+    required: false
     default: ''
-  ### Flags for <linter-name> ###
-  locale:
-    description: '-locale flag of misspell. (US/UK)'
+  terrascan-log-level:
+    description: 'log level (debug, info, warn, error, panic, fatal)'
+    required: false
     default: ''
+  terrascan-iac-dir:
+    description: 'path to a directory containing one or more IaC files'
+    required: false
+    default: ''
+  terrascan-iac-type:
+    description: 'iac type (helm, k8s, kustomize, terraform, tfplan)'
+    required: true
+    default: ''
+  terrascan-iac-version:
+    description: 'iac version (helm: v3, k8s: v1, kustomize: v3, terraform: v12, v13, v14, tfplan: v1)'
+    required: false
+    default: ''
+  terrascan-policy-type:
+    description: 'policy type (all, aws, azure, gcp, github, k8s)'
+    required: false
+    default: ''
+  terrascan-remote-type:
+    description: 'type of remote backend (git, s3, gcs, http, terraform-registry)'
+    required: false
+    default: ''
+  terrascan-remote-url:
+    description: 'url pointing to remote IaC repository'
+    required: false
+    default: ''
+  terrascan-scan-rules:
+    description: 'one or more rules to scan (example: --scan-rules="ruleID1,ruleID2")'
+    required: false
+    default: ''
+  terrascan-severity:
+    description: 'minimum severity level of the policy violations to be reported by terrascan (HIGH, MEDIUM, LOW)'
+    required: false
+    default: ''
+  terrascan-skip-rules:
+    description: 'one or more rules to skip while scanning (example: --skip-rules="ruleID1,ruleID2")'
+    required: false
+    default: ''
+  terrascan-verbose:
+    description: 'will show violations with details (applicable for default output)'
+    required: false
+    default: "1"
+  only-warn:
+    description: 'will only warn and not error when violations are found'
+    required: false
+    default: ''
+```
+
+## Outputs
+
+```yaml
+outputs:
+  terrascan-results:
+    description: 'The JSON object string of terrascan results'
+    value: ${{ steps.terrascan.terrascan-results }}
+  terrascan-exit-code:
+    description: 'The exit code of terrascan'
+    value: ${{ steps.terrascan.terrascan-exit-code }}
+  reviewdog-return-code:
+    description: 'The exit code of reviewdog'
+    value: ${{ steps.terrascan.reviewdog-return-code }}
 ```
 
 ## Usage
-<!-- TODO: update. replace `template` with the linter name -->
 
 ```yaml
-name: reviewdog
-on: [pull_request]
 jobs:
-  # TODO: change `linter_name`.
-  linter_name:
-    name: runner / <linter-name>
+  test-pr-review:
+    if: "github.event_name == 'pull_request'"
+    name: runner / terrascan (github-pr-review)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: reviewdog/action-composite-template@v1
+      - uses: ./
+        continue-on-error: true
+        id: test-scan
         with:
           github_token: ${{ secrets.github_token }}
-          # Change reviewdog reporter if you need [github-check,github-pr-review,github-pr-check].
+          working-directory: ${{ github.workspace }}/testdata/terraform/
           reporter: github-pr-review
-          # Change reporter level if you need.
-          # GitHub Status Check won't become failure with warning.
-          level: warning
+          level: error
+          terrascan-iac-type: terraform
+      - name: "Test outputs"
+        shell: bash
+        run:
+          echo "${{ steps.test-scan.outputs.terrascan-results }}"
 ```
-
-## Development
-
-### Release
-
-#### [haya14busa/action-bumpr](https://github.com/haya14busa/action-bumpr)
-You can bump version on merging Pull Requests with specific labels (bump:major,bump:minor,bump:patch).
-Pushing tag manually by yourself also work.
-
-#### [haya14busa/action-update-semver](https://github.com/haya14busa/action-update-semver)
-
-This action updates major/minor release tags on a tag push. e.g. Update v1 and v1.2 tag when released v1.2.3.
-ref: https://help.github.com/en/articles/about-actions#versioning-your-action
-
-### Lint - reviewdog integration
-
-This reviewdog action template itself is integrated with reviewdog to run lints
-which is useful for Docker container based actions.
-
-![reviewdog integration](https://user-images.githubusercontent.com/3797062/72735107-7fbb9600-3bde-11ea-8087-12af76e7ee6f.png)
-
-Supported linters:
-
-- [reviewdog/action-shellcheck](https://github.com/reviewdog/action-shellcheck)
-- [reviewdog/action-hadolint](https://github.com/reviewdog/action-hadolint)
-- [reviewdog/action-misspell](https://github.com/reviewdog/action-misspell)
-
-### Dependencies Update Automation
-This repository uses [reviewdog/action-depup](https://github.com/reviewdog/action-depup) to update
-reviewdog version.
-
-![reviewdog depup demo](https://user-images.githubusercontent.com/3797062/73154254-170e7500-411a-11ea-8211-912e9de7c936.png)

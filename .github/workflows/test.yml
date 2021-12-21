@@ -12,12 +12,19 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: ./
+        id: test-scan
         with:
           github_token: ${{ secrets.github_token }}
           working-directory: ${{ github.workspace }}/testdata/terraform/
           reporter: github-check
           level: info
           terrascan-iac-type: terraform
+      - name: "Test outputs"
+        shell: bash
+        run:
+          echo "${{ steps.test-scan.outputs.terrascan-results }}"
+          echo "${{ steps.test-scan.outputs.terrascan-exit-code }}"
+          echo "${{ steps.test-scan.outputs.reviewdog-exit-code }}"
 
   test-pr-check:
     if: github.event_name == 'pull_request'
@@ -26,12 +33,19 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: ./
+        id: test-scan
         with:
           github_token: ${{ secrets.github_token }}
           working-directory: ${{ github.workspace }}/testdata/terraform/
           reporter: github-pr-check
           level: warning
           terrascan-iac-type: terraform
+      - name: "Test outputs"
+        shell: bash
+        run:
+          echo "${{ steps.test-scan.outputs.terrascan-results }}"
+          echo "${{ steps.test-scan.outputs.terrascan-exit-code }}"
+          echo "${{ steps.test-scan.outputs.reviewdog-exit-code }}"
 
   test-pr-review:
     if: "github.event_name == 'pull_request'"
@@ -41,12 +55,19 @@ jobs:
       - uses: actions/checkout@v2
       - uses: ./
         continue-on-error: true
+        id: test-scan
         with:
           github_token: ${{ secrets.github_token }}
           working-directory: ${{ github.workspace }}/testdata/terraform/
           reporter: github-pr-review
           level: error
           terrascan-iac-type: terraform
+      - name: "Test outputs"
+        shell: bash
+        run:
+          echo "${{ steps.test-scan.outputs.terrascan-results }}"
+          echo "${{ steps.test-scan.outputs.terrascan-exit-code }}"
+          echo "${{ steps.test-scan.outputs.reviewdog-exit-code }}"
       - name: check the exit code
         if: ${{ !success() }}
         run: echo 'The previous step should fail' && exit 1

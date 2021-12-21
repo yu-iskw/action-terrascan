@@ -1,6 +1,6 @@
-name: 'TODO: Run <linter-name> with reviewdog'
-description: 'TODO: 🐶 Run <linter-name> with reviewdog on pull requests to improve code review experience.'
-author: 'TODO: <your-name>'
+name: 'Run terrascan with reviewdog'
+description: 'TODO: 🐶 Run terrascan with reviewdog on pull requests to improve code review experience.'
+author: 'yu-iskw'
 inputs:
   github_token:
     description: 'GITHUB_TOKEN'
@@ -99,6 +99,16 @@ inputs:
     required: false
     default: ''
 
+outputs:
+  terrascan-results:
+    description: 'The JSON object string of terrascan results'
+    value: ${{ steps.terrascan.terrascan-results }}
+  terrascan-exit-code:
+    description: 'The exit code of terrascan'
+    value: ${{ steps.terrascan.terrascan-exit-code }}
+  reviewdog-return-code:
+    description: 'The exit code of reviewdog'
+    value: ${{ steps.terrascan.reviewdog-return-code }}
 
 runs:
   using: 'composite'
@@ -107,6 +117,7 @@ runs:
       with:
         reviewdog_version: "${{ inputs.reviewdog_version }}"
     - run: $GITHUB_ACTION_PATH/script.sh
+      id: terrascan
       shell: bash
       env:
         # INPUT_<VARIABLE_NAME> is not available in Composite run steps
