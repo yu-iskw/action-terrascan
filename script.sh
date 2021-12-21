@@ -26,10 +26,11 @@ echo '::group::Scan ...'
 # Allow failures now, as reviewdog handles them
 set +Eeuo pipefail
 
-scan_results="terrascan.results.json"
+scan_results="terrascan-results.json"
 echo 1
+pwd
+
 # shellcheck disable=SC2046
-echo "$(pwd)"
 terrascan scan \
   --output json \
   $(if [[ "x${TERRASCAN_CONFIG_PATH}" != "x" ]]; then echo "--config-PATH ${TERRASCAN_CONFIG_PATH}"; fi) \
@@ -44,12 +45,12 @@ terrascan scan \
   $(if [[ "x${TERRASCAN_SKIP_RULES}" != "x" ]]; then echo "--skip-rules ${TERRASCAN_SKIP-RULES}"; fi) \
   $(if [[ "x${TERRASCAN_USE_COLORS}" != "x" ]]; then echo "--use-colors ${TERRASCAN_USE_COLORS}"; fi) \
   $(if [[ "x${TERRASCAN_VERBOSE}" != "x" ]]; then echo "--verbose"; fi) \
-  > "$scan_results"
+  >"$scan_results"
 
 terrascan_exit_code=$?
 
 echo 2
-cat < "$scan_results"
+cat <"$scan_results"
 
 echo "::set-output name=terrascan-results::$(cat <"$scan_results" | jq -r -c '.')" # Convert to a single line
 echo "::set-output name=terrascan-exit-code::${terrascan_exit_code}"
