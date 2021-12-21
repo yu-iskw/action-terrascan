@@ -102,13 +102,13 @@ inputs:
 outputs:
   terrascan-results:
     description: 'The JSON object string of terrascan results'
-    value: ${{ steps.terrascan.terrascan-results }}
+    value: ${{ steps.terrascan.outputs.terrascan-results }}
   terrascan-exit-code:
     description: 'The exit code of terrascan'
-    value: ${{ steps.terrascan.terrascan-exit-code }}
+    value: ${{ steps.terrascan.outputs.terrascan-exit-code }}
   reviewdog-return-code:
     description: 'The exit code of reviewdog'
-    value: ${{ steps.terrascan.reviewdog-return-code }}
+    value: ${{ steps.terrascan.outputs.reviewdog-return-code }}
 
 runs:
   using: 'composite'
