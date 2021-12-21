@@ -25,8 +25,8 @@ inputs:
   filter-mode:
     description: |
       Filtering mode for the reviewdog command [added,diff_context,file,nofilter].
-      Default is added.
-    default: 'added'
+      Default is file.
+    default: 'file'
     required: false
   fail-on-error:
     description: |
