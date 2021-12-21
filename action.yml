@@ -106,6 +106,9 @@ outputs:
   terrascan-exit-code:
     description: 'The exit code of terrascan'
     value: ${{ steps.terrascan-with-reviewdog-in-composite.outputs.terrascan-exit-code }}
+  terrascan-results-rdjson:
+    description: 'The JSON object string of terrascan results'
+    value: ${{ steps.terrascan-with-reviewdog-in-composite.outputs.terrascan-results-rdjson }}
   reviewdog-return-code:
     description: 'The exit code of reviewdog'
     value: ${{ steps.terrascan-with-reviewdog-in-composite.outputs.reviewdog-return-code }}
