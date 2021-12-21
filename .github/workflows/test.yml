@@ -22,7 +22,7 @@ jobs:
       - name: "Test outputs"
         shell: bash
         run:
-          echo "${{ steps.test-scan.outputs.terrascan-results }}"
+          echo "${{ steps.test-scan.outputs.terrascan-results }}" | jq -r '.'
           echo "${{ steps.test-scan.outputs.terrascan-exit-code }}"
           echo "${{ steps.test-scan.outputs.reviewdog-exit-code }}"
 
@@ -43,7 +43,7 @@ jobs:
       - name: "Test outputs"
         shell: bash
         run:
-          echo "${{ steps.test-scan.outputs.terrascan-results }}"
+          echo "${{ steps.test-scan.outputs.terrascan-results }}" | jq -r '.'
           echo "${{ steps.test-scan.outputs.terrascan-exit-code }}"
           echo "${{ steps.test-scan.outputs.reviewdog-exit-code }}"
 
@@ -65,7 +65,7 @@ jobs:
       - name: "Test outputs"
         shell: bash
         run:
-          echo "${{ steps.test-scan.outputs.terrascan-results }}"
+          echo "${{ steps.test-scan.outputs.terrascan-results }}" | jq -r '.'
           echo "${{ steps.test-scan.outputs.terrascan-exit-code }}"
           echo "${{ steps.test-scan.outputs.reviewdog-exit-code }}"
       - name: check the exit code
