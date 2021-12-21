@@ -32,7 +32,8 @@ pwd
 echo '{}' | tee "$scan_results"
 
 # shellcheck disable=SC2046
-terrascan scan --output json --iac-type terraform > "$scan_results"
+terrascan scan --output json --iac-type terraform >"$scan_results"
+cat "$scan_results"
 
 # shellcheck disable=SC2046
 terrascan scan \
