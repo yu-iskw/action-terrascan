@@ -49,8 +49,8 @@ terrascan scan \
   $(if [[ "x${TERRASCAN_SEVERITY}" != "x" ]]; then echo "--severity ${TERRASCAN_SEVERITY}"; fi) \
   $(if [[ "x${TERRASCAN_SKIP_RULES}" != "x" ]]; then echo "--skip-rules ${TERRASCAN_SKIP-RULES}"; fi) \
   $(if [[ "x${TERRASCAN_USE_COLORS}" != "x" ]]; then echo "--use-colors ${TERRASCAN_USE_COLORS}"; fi) \
-  $(if [[ "x${TERRASCAN_VERBOSE}" != "x" ]]; then echo "--verbose"; fi) \
-  >"$scan_results"
+  $(if [[ "x${TERRASCAN_VERBOSE}" != "x" ]]; then echo "--verbose"; fi) |
+  tee "$scan_results"
 
 terrascan_exit_code=$?
 
