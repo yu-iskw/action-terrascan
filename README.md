@@ -141,7 +141,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: ./
+      - uses: yu-iskw/action-terrascan@main
         continue-on-error: true
         id: test-scan
         with:
