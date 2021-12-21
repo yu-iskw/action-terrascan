@@ -31,6 +31,9 @@ echo 1
 pwd
 
 # shellcheck disable=SC2046
+terrascan scan --output json
+
+# shellcheck disable=SC2046
 terrascan scan \
   --output json \
   $(if [[ "x${TERRASCAN_CONFIG_PATH}" != "x" ]]; then echo "--config-PATH ${TERRASCAN_CONFIG_PATH}"; fi) \
