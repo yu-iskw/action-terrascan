@@ -48,7 +48,7 @@ terrascan scan \
 terrascan_exit_code=$?
 
 echo 2
-cat <, "$scan_results"
+cat < "$scan_results"
 
 echo "::set-output name=terrascan-results::$(cat <"$scan_results" | jq -r -c '.')" # Convert to a single line
 echo "::set-output name=terrascan-exit-code::${terrascan_exit_code}"
