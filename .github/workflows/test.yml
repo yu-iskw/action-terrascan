@@ -20,6 +20,7 @@ jobs:
           filter-mode: "nofilter"
           level: info
           terrascan-iac-type: terraform
+          terrascan-severity: LOW
       - name: "Test outputs"
         shell: bash
         run: |
@@ -43,6 +44,7 @@ jobs:
           filter-mode: "nofilter"
           level: warning
           terrascan-iac-type: terraform
+          terrascan-severity: LOW
       - name: "Test outputs"
         shell: bash
         run: |
@@ -67,6 +69,7 @@ jobs:
           filter-mode: "nofilter"
           level: error
           terrascan-iac-type: terraform
+          terrascan-severity: LOW
       - name: "Test outputs"
         shell: bash
         run: |
