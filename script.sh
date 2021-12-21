@@ -61,7 +61,7 @@ cat <"$scan_results" |
 		-name="terrascan" \
 		-reporter="${REVIEWDOG_REPORTER}" \
 		-level="${REVIEWDOG_LEVEL}" \
-		-fail-on-error="${REVIEW_DOG_FAIL_ON_ERROR}" \
+		-fail-on-error="${REVIEWDOG_FAIL_ON_ERROR}" \
 		-filter-mode="${REVIEWDOG_FILTER_MODE}"
 
 reviewdog_return_code="${PIPESTATUS[2]}"
