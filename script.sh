@@ -9,7 +9,7 @@ fi
 set -Eeuo pipefail
 
 # shellcheck disable=SC2001
-export WORKING_DIRECTORY="$(echo "$WORKING_DIRECTORY" | sed -e 's:$\/::')"
+export WORKING_DIRECTORY="$(echo "$WORKING_DIRECTORY" | sed -e 's:\/$::')"
 cd "${WORKING_DIRECTORY}" || exit
 
 # Install terrascan
