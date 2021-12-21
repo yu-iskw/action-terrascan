@@ -21,7 +21,7 @@ jobs:
           terrascan-iac-type: terraform
       - name: "Test outputs"
         shell: bash
-        run:
+        run: |
           echo "${{ steps.test-scan.outputs.terrascan-results }}" | jq -r '.'
           echo "${{ steps.test-scan.outputs.terrascan-exit-code }}"
           echo "${{ steps.test-scan.outputs.reviewdog-exit-code }}"
@@ -42,7 +42,7 @@ jobs:
           terrascan-iac-type: terraform
       - name: "Test outputs"
         shell: bash
-        run:
+        run: |
           echo "${{ steps.test-scan.outputs.terrascan-results }}" | jq -r '.'
           echo "${{ steps.test-scan.outputs.terrascan-exit-code }}"
           echo "${{ steps.test-scan.outputs.reviewdog-exit-code }}"
@@ -64,7 +64,7 @@ jobs:
           terrascan-iac-type: terraform
       - name: "Test outputs"
         shell: bash
-        run:
+        run: |
           echo "${{ steps.test-scan.outputs.terrascan-results }}" | jq -r '.'
           echo "${{ steps.test-scan.outputs.terrascan-exit-code }}"
           echo "${{ steps.test-scan.outputs.reviewdog-exit-code }}"
