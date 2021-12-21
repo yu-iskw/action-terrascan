@@ -15,15 +15,17 @@ jobs:
         id: test-scan
         with:
           github_token: ${{ secrets.github_token }}
-          working-directory: ${{ github.workspace }}/testdata/terraform/
+          working-directory: testdata/terraform/
           reporter: github-check
           filter-mode: "nofilter"
           level: info
           terrascan-iac-type: terraform
+          terrascan-severity: LOW
       - name: "Test outputs"
         shell: bash
         run: |
           echo '${{ steps.test-scan.outputs.terrascan-results }}' | jq -r '.'
+          echo '${{ steps.test-scan.outputs.terrascan-results-rdjson }}' | jq -r '.'
           echo '${{ steps.test-scan.outputs.terrascan-exit-code }}'
           echo '${{ steps.test-scan.outputs.reviewdog-exit-code }}'
 
@@ -37,15 +39,17 @@ jobs:
         id: test-scan
         with:
           github_token: ${{ secrets.github_token }}
-          working-directory: ${{ github.workspace }}/testdata/terraform/
+          working-directory: testdata/terraform/
           reporter: github-pr-check
           filter-mode: "nofilter"
           level: warning
           terrascan-iac-type: terraform
+          terrascan-severity: LOW
       - name: "Test outputs"
         shell: bash
         run: |
           echo '${{ steps.test-scan.outputs.terrascan-results }}' | jq -r '.'
+          echo '${{ steps.test-scan.outputs.terrascan-results-rdjson }}' | jq -r '.'
           echo '${{ steps.test-scan.outputs.terrascan-exit-code }}'
           echo '${{ steps.test-scan.outputs.reviewdog-exit-code }}'
 
@@ -60,15 +64,17 @@ jobs:
         id: test-scan
         with:
           github_token: ${{ secrets.github_token }}
-          working-directory: ${{ github.workspace }}/testdata/terraform/
+          working-directory: testdata/terraform/
           reporter: github-pr-review
           filter-mode: "nofilter"
           level: error
           terrascan-iac-type: terraform
+          terrascan-severity: LOW
       - name: "Test outputs"
         shell: bash
         run: |
           echo '${{ steps.test-scan.outputs.terrascan-results }}' | jq -r '.'
+          echo '${{ steps.test-scan.outputs.terrascan-results-rdjson }}' | jq -r '.'
           echo '${{ steps.test-scan.outputs.terrascan-exit-code }}'
           echo '${{ steps.test-scan.outputs.reviewdog-exit-code }}'
       - name: check the exit code

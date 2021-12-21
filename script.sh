@@ -8,6 +8,8 @@ fi
 # Fail fast on errors, unset variables, and failures in piped commands
 set -Eeuo pipefail
 
+# shellcheck disable=SC2001
+WORKING_DIRECTORY="$(echo "$WORKING_DIRECTORY" | sed -e 's:\/$::')"
 cd "${WORKING_DIRECTORY}" || exit
 
 # Install terrascan
@@ -56,8 +58,12 @@ echo '::group::reviewdog...'
 # Allow failures now, as reviewdog handles them
 set +Eeuo pipefail
 
+scan_results_rdjson="terrascan-results.rdjson"
 cat <"$scan_results" |
   jq -r --arg "working_directory" "${WORKING_DIRECTORY:?}" -f "${GITHUB_ACTION_PATH}/to-rdjson.jq" |
+  tee >"$scan_results_rdjson"
+
+cat <"$scan_results_rdjson" |
   reviewdog -f=rdjson \
     -name="terrascan" \
     -reporter="${REVIEWDOG_REPORTER}" \
@@ -65,7 +71,8 @@ cat <"$scan_results" |
     -fail-on-error="${REVIEWDOG_FAIL_ON_ERROR}" \
     -filter-mode="${REVIEWDOG_FILTER_MODE}"
 
-reviewdog_return_code="${PIPESTATUS[2]}"
+reviewdog_return_code="${PIPESTATUS[1]}"
+echo "::set-output name=terrascan-results-rdjson::$(cat <"$scan_results_rdjson" | jq -r -c '.')" # Convert to a single line
 echo "::set-output name=reviewdog-return-code::${reviewdog_return_code}"
 
 set -Eeuo pipefail
