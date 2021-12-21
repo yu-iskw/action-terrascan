@@ -38,7 +38,7 @@ cat "$scan_results"
 # shellcheck disable=SC2046
 terrascan scan \
   --output json \
-  $(if [[ "x${TERRASCAN_CONFIG_PATH}" != "x" ]]; then echo "--config-PATH ${TERRASCAN_CONFIG_PATH}"; fi) \
+  $(if [[ "x${TERRASCAN_CONFIG_PATH}" != "x" ]]; then echo "--config-path ${TERRASCAN_CONFIG_PATH}"; fi) \
   $(if [[ "x${TERRASCAN_LOG_LEVEL}" != "x" ]]; then echo "--log-level ${TERRASCAN_LOG_LEVEL}"; fi) \
   $(if [[ "x${TERRASCAN_IAC_DIR}" != "x" ]]; then echo "--iac-dir ${TERRASCAN_IAC_DIR}"; fi) \
   $(if [[ "x${TERRASCAN_IAC_TYPE}" != "x" ]]; then echo "--iac-type ${TERRASCAN_IAC_TYPE}"; fi) \
