@@ -29,6 +29,7 @@ set +Eeuo pipefail
 scan_results="terrascan-results.json"
 echo 1
 pwd
+echo '{}' | tee "$scan_results"
 
 # shellcheck disable=SC2046
 terrascan scan --output json
