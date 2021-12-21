@@ -15,7 +15,7 @@ jobs:
         id: test-scan
         with:
           github_token: ${{ secrets.github_token }}
-          working-directory: ${{ github.workspace }}/testdata/terraform/
+          working-directory: testdata/terraform/
           reporter: github-check
           filter-mode: "nofilter"
           level: info
@@ -38,7 +38,7 @@ jobs:
         id: test-scan
         with:
           github_token: ${{ secrets.github_token }}
-          working-directory: ${{ github.workspace }}/testdata/terraform/
+          working-directory: testdata/terraform/
           reporter: github-pr-check
           filter-mode: "nofilter"
           level: warning
@@ -62,7 +62,7 @@ jobs:
         id: test-scan
         with:
           github_token: ${{ secrets.github_token }}
-          working-directory: ${{ github.workspace }}/testdata/terraform/
+          working-directory: testdata/terraform/
           reporter: github-pr-review
           filter-mode: "nofilter"
           level: error

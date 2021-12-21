@@ -8,6 +8,8 @@ fi
 # Fail fast on errors, unset variables, and failures in piped commands
 set -Eeuo pipefail
 
+# shellcheck disable=SC2001
+export WORKING_DIRECTORY="$(echo "$WORKING_DIRECTORY" | sed -e 's:$\/::')"
 cd "${WORKING_DIRECTORY}" || exit
 
 # Install terrascan
