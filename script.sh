@@ -62,7 +62,7 @@ cat <"$scan_results" |
 		-reporter="${REVIEWDOG_REPORTER}" \
 		-level="${REVIEWDOG_LEVEL}" \
 		-fail-on-error="${REVIEW_DOG_FAIL_ON_ERROR}" \
-		-filter-mode="${INPUT_FILTER_MODE}"
+		-filter-mode="${REVIEWDOG_FILTER_MODE}"
 
 reviewdog_return_code="${PIPESTATUS[2]}"
 echo "::set-output name=reviewdog-return-code::${reviewdog_return_code}"
