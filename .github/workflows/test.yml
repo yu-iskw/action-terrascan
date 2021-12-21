@@ -22,9 +22,9 @@ jobs:
       - name: "Test outputs"
         shell: bash
         run: |
-          echo "${{ steps.test-scan.outputs.terrascan-results }}" | jq -r '.'
-          echo "${{ steps.test-scan.outputs.terrascan-exit-code }}"
-          echo "${{ steps.test-scan.outputs.reviewdog-exit-code }}"
+          echo '${{ steps.test-scan.outputs.terrascan-results }}' | jq -r '.'
+          echo '${{ steps.test-scan.outputs.terrascan-exit-code }}'
+          echo '${{ steps.test-scan.outputs.reviewdog-exit-code }}'
 
   test-pr-check:
     if: github.event_name == 'pull_request'
@@ -43,9 +43,9 @@ jobs:
       - name: "Test outputs"
         shell: bash
         run: |
-          echo "${{ steps.test-scan.outputs.terrascan-results }}" | jq -r '.'
-          echo "${{ steps.test-scan.outputs.terrascan-exit-code }}"
-          echo "${{ steps.test-scan.outputs.reviewdog-exit-code }}"
+          echo '${{ steps.test-scan.outputs.terrascan-results }}' | jq -r '.'
+          echo '${{ steps.test-scan.outputs.terrascan-exit-code }}'
+          echo '${{ steps.test-scan.outputs.reviewdog-exit-code }}'
 
   test-pr-review:
     if: "github.event_name == 'pull_request'"
@@ -65,9 +65,9 @@ jobs:
       - name: "Test outputs"
         shell: bash
         run: |
-          echo "${{ steps.test-scan.outputs.terrascan-results }}" | jq -r '.'
-          echo "${{ steps.test-scan.outputs.terrascan-exit-code }}"
-          echo "${{ steps.test-scan.outputs.reviewdog-exit-code }}"
+          echo '${{ steps.test-scan.outputs.terrascan-results }}' | jq -r '.'
+          echo '${{ steps.test-scan.outputs.terrascan-exit-code }}'
+          echo '${{ steps.test-scan.outputs.reviewdog-exit-code }}'
       - name: check the exit code
         if: ${{ !success() }}
         run: echo 'The previous step should fail' && exit 1
