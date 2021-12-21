@@ -27,14 +27,6 @@ echo '::group::Scan ...'
 set +Eeuo pipefail
 
 scan_results="terrascan-results.json"
-echo 1
-pwd
-echo '{}' | tee "$scan_results"
-
-# shellcheck disable=SC2046
-terrascan scan --output json --iac-type terraform >"$scan_results"
-cat "$scan_results"
-
 # shellcheck disable=SC2046
 terrascan scan \
   --output json \
@@ -51,17 +43,11 @@ terrascan scan \
   $(if [[ "x${TERRASCAN_USE_COLORS}" != "x" ]]; then echo "--use-colors ${TERRASCAN_USE_COLORS}"; fi) \
   $(if [[ "x${TERRASCAN_VERBOSE}" != "x" ]]; then echo "--verbose"; fi) |
   tee "$scan_results"
-
 terrascan_exit_code=$?
-
-echo 2
-ls -l "$scan_results"
-cat <"$scan_results"
 
 echo "::set-output name=terrascan-results::$(cat <"$scan_results" | jq -r -c '.')" # Convert to a single line
 echo "::set-output name=terrascan-exit-code::${terrascan_exit_code}"
 
-echo 3
 set -Eeuo pipefail
 echo '::endgroup::'
 
