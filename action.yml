@@ -116,7 +116,7 @@ runs:
     - uses: reviewdog/action-setup@v1
       with:
         reviewdog_version: "${{ inputs.reviewdog_version }}"
-    - run: $GITHUB_ACTION_PATH/script.sh
+    - run: ${{ github.action_path }}/script.sh
       id: terrascan-with-reviewdog-in-composite
       shell: bash
       env:
