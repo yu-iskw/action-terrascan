@@ -56,10 +56,10 @@ echo '::group::reviewdog...'
 # Allow failures now, as reviewdog handles them
 set +Eeuo pipefail
 
-cat <"$scan_results"
-
+echo "======"
 cat <"$scan_results" |
   jq -r --arg "working_directory" "${WORKING_DIRECTORY:?}" -f "${GITHUB_ACTION_PATH}/to-rdjson.jq"
+echo "++++++"
 
 cat <"$scan_results" |
   jq -r --arg "working_directory" "${WORKING_DIRECTORY:?}" -f "${GITHUB_ACTION_PATH}/to-rdjson.jq" |
