@@ -102,13 +102,13 @@ inputs:
 outputs:
   terrascan-results:
     description: 'The JSON object string of terrascan results'
-    value: ${{ steps.terrascan.outputs.terrascan-results }}
+    value: ${{ steps.terrascan-with-reviewdog-in-composite.outputs.terrascan-results }}
   terrascan-exit-code:
     description: 'The exit code of terrascan'
-    value: ${{ steps.terrascan.outputs.terrascan-exit-code }}
+    value: ${{ steps.terrascan-with-reviewdog-in-composite.outputs.terrascan-exit-code }}
   reviewdog-return-code:
     description: 'The exit code of reviewdog'
-    value: ${{ steps.terrascan.outputs.reviewdog-return-code }}
+    value: ${{ steps.terrascan-with-reviewdog-in-composite.outputs.reviewdog-return-code }}
 
 runs:
   using: 'composite'
@@ -117,7 +117,7 @@ runs:
       with:
         reviewdog_version: "${{ inputs.reviewdog_version }}"
     - run: $GITHUB_ACTION_PATH/script.sh
-      id: terrascan
+      id: terrascan-with-reviewdog-in-composite
       shell: bash
       env:
         # INPUT_<VARIABLE_NAME> is not available in Composite run steps
