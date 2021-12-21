@@ -4,47 +4,70 @@ on:
     branches:
       - main
   pull_request:
+
 jobs:
   test-check:
-    name: runner / <linter-name> (github-check)
+    name: "runner / terrascan (github-check)"
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - uses: ./
+        id: test-scan
         with:
           github_token: ${{ secrets.github_token }}
+          working-directory: ${{ github.workspace }}/testdata/terraform/
           reporter: github-check
           level: info
-          locale: "US"
+          terrascan-iac-type: terraform
+      - name: "Test outputs"
+        shell: bash
+        run: |
+          echo '${{ steps.test-scan.outputs.terrascan-results }}' | jq -r '.'
+          echo '${{ steps.test-scan.outputs.terrascan-exit-code }}'
+          echo '${{ steps.test-scan.outputs.reviewdog-exit-code }}'
 
   test-pr-check:
     if: github.event_name == 'pull_request'
-    name: runner / <linter-name> (github-pr-check)
+    name: "runner / terrascan (github-pr-check)"
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - uses: ./
+        id: test-scan
         with:
           github_token: ${{ secrets.github_token }}
+          working-directory: ${{ github.workspace }}/testdata/terraform/
           reporter: github-pr-check
           level: warning
-          locale: "US"
-          workdir: ./testdata/subdir/
+          terrascan-iac-type: terraform
+      - name: "Test outputs"
+        shell: bash
+        run: |
+          echo '${{ steps.test-scan.outputs.terrascan-results }}' | jq -r '.'
+          echo '${{ steps.test-scan.outputs.terrascan-exit-code }}'
+          echo '${{ steps.test-scan.outputs.reviewdog-exit-code }}'
 
   test-pr-review:
-    if: github.event_name == 'pull_request'
-    name: runner / <linter-name> (github-pr-review)
+    if: "github.event_name == 'pull_request'"
+    name: runner / terrascan (github-pr-review)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - uses: ./
         continue-on-error: true
+        id: test-scan
         with:
           github_token: ${{ secrets.github_token }}
+          working-directory: ${{ github.workspace }}/testdata/terraform/
           reporter: github-pr-review
           level: error
-          locale: "US"
-          reviewdog_flags: -filter-mode=file -fail-on-error
+          terrascan-iac-type: terraform
+      - name: "Test outputs"
+        shell: bash
+        run: |
+          echo '${{ steps.test-scan.outputs.terrascan-results }}' | jq -r '.'
+          echo '${{ steps.test-scan.outputs.terrascan-exit-code }}'
+          echo '${{ steps.test-scan.outputs.reviewdog-exit-code }}'
       - name: check the exit code
         if: ${{ !success() }}
         run: echo 'The previous step should fail' && exit 1
