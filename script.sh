@@ -60,7 +60,7 @@ set +Eeuo pipefail
 
 scan_results_rdjson="terrascan-results.rdjson"
 cat <"$scan_results" |
-  jq -r --arg "working_directory" "${WORKING_DIRECTORY:?}" -f "${GITHUB_ACTION_PATH}/to-rdjson.jq" |
+  jq -r -f "${GITHUB_ACTION_PATH}/to-rdjson.jq" |
   tee >"$scan_results_rdjson"
 
 cat <"$scan_results_rdjson" |
