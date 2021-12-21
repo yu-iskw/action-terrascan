@@ -29,6 +29,7 @@ set +Eeuo pipefail
 scan_results="terrascan.results.json"
 echo 1
 # shellcheck disable=SC2046
+echo "$(pwd)"
 terrascan scan \
   --output json \
   $(if [[ "x${TERRASCAN_CONFIG_PATH}" != "x" ]]; then echo "--config-PATH ${TERRASCAN_CONFIG_PATH}"; fi) \
