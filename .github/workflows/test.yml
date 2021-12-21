@@ -24,6 +24,7 @@ jobs:
         shell: bash
         run: |
           echo '${{ steps.test-scan.outputs.terrascan-results }}' | jq -r '.'
+          echo '${{ steps.test-scan.outputs.terrascan-results-rdjson }}' | jq -r '.'
           echo '${{ steps.test-scan.outputs.terrascan-exit-code }}'
           echo '${{ steps.test-scan.outputs.reviewdog-exit-code }}'
 
@@ -46,6 +47,7 @@ jobs:
         shell: bash
         run: |
           echo '${{ steps.test-scan.outputs.terrascan-results }}' | jq -r '.'
+          echo '${{ steps.test-scan.outputs.terrascan-results-rdjson }}' | jq -r '.'
           echo '${{ steps.test-scan.outputs.terrascan-exit-code }}'
           echo '${{ steps.test-scan.outputs.reviewdog-exit-code }}'
 
@@ -69,6 +71,7 @@ jobs:
         shell: bash
         run: |
           echo '${{ steps.test-scan.outputs.terrascan-results }}' | jq -r '.'
+          echo '${{ steps.test-scan.outputs.terrascan-results-rdjson }}' | jq -r '.'
           echo '${{ steps.test-scan.outputs.terrascan-exit-code }}'
           echo '${{ steps.test-scan.outputs.reviewdog-exit-code }}'
       - name: check the exit code
