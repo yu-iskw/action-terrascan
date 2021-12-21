@@ -46,6 +46,8 @@ echo '::group::Scan ...'
   terrascan_exit_code=$?
   echo "::set-output name=terrascan-results::$(cat < "$scan_results" | jq -r -c '.')" # Convert to a single line
   echo "::set-output name=terrascan-exit-code::${terrascan_exit_code}"
+
+  set -Eeuo pipefail
 echo '::endgroup::'
 
 # reviewdog
@@ -54,8 +56,8 @@ echo '::group::reviewdog...'
   set +Eeuo pipefail
 
   cat < "$scan_results" \
-    | jq -r -f "${GITHUB_ACTION_PATH}/to-rdjson.jq" \
-    |  reviewdog -f=rdjson \
+    | jq -r --arg "working_directory" "${WORKING_DIRECTORY:?}" -f "${GITHUB_ACTION_PATH}/to-rdjson.jq" \
+    | reviewdog -f=rdjson \
         -name="terrascan" \
         -reporter="${REVIEWDOG_REPORTER}" \
         -level="${REVIEWDOG_LEVEL}" \
@@ -64,6 +66,8 @@ echo '::group::reviewdog...'
 
   reviewdog_return_code="${PIPESTATUS[2]}"
   echo "::set-output name=reviewdog-return-code::${reviewdog_return_code}"
+
+  set -Eeuo pipefail
 echo '::endgroup::'
 
 # exit
