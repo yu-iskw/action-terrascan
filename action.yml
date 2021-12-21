@@ -111,7 +111,7 @@ runs:
       env:
         # INPUT_<VARIABLE_NAME> is not available in Composite run steps
         # https://github.community/t/input-variable-name-is-not-available-in-composite-run-steps/127611
-        GITHUB_TOKEN: ${{ inputs.github_token }}
+        REVIEWDOG_GITHUB_API_TOKEN: ${{ inputs.github_token }}
         WORKING_DIRECTORY: ${{ inputs.working-directory }}
         ONLY_WARN: ${{ inputs.only-warn }}
 
