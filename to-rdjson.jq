@@ -9,7 +9,7 @@
       value: .rule_id,
     } ,
     location: {
-      path: "\($working_directory)/\(.file)",
+      path: .file,
       range: {
         start: {
           line: .line,
