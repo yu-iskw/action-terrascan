@@ -122,13 +122,16 @@ inputs:
 outputs:
   terrascan-results:
     description: 'The JSON object string of terrascan results'
-    value: ${{ steps.terrascan.terrascan-results }}
+    value: ${{ steps.terrascan-with-reviewdog-in-composite.outputs.terrascan-results }}
   terrascan-exit-code:
     description: 'The exit code of terrascan'
-    value: ${{ steps.terrascan.terrascan-exit-code }}
+    value: ${{ steps.terrascan-with-reviewdog-in-composite.outputs.terrascan-exit-code }}
+  terrascan-results-rdjson:
+    description: 'The JSON object string of terrascan results'
+    value: ${{ steps.terrascan-with-reviewdog-in-composite.outputs.terrascan-results-rdjson }}
   reviewdog-return-code:
     description: 'The exit code of reviewdog'
-    value: ${{ steps.terrascan.reviewdog-return-code }}
+    value: ${{ steps.terrascan-with-reviewdog-in-composite.outputs.reviewdog-return-code }}
 ```
 
 ## Usage
@@ -141,7 +144,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: yu-iskw/action-terrascan@main
+      - uses: yu-iskw/action-terrascan@v1
         continue-on-error: true
         id: test-scan
         with:
