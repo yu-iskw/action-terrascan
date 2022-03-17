@@ -33,7 +33,7 @@ jobs:
         if: steps.test-scan.outputs.terrascan-exit-code == 0
         shell: bash
         run: |
-          echo "terrascan-exit-code should be 1."
+          echo "terrascan-exit-code should not be 0, because terrascan must be failed."
           exit 1
 
   test-pr-check:
