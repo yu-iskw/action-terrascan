@@ -45,7 +45,7 @@ terrascan scan \
   $(if [[ "x${TERRASCAN_USE_COLORS}" != "x" ]]; then echo "--use-colors ${TERRASCAN_USE_COLORS}"; fi) \
   $(if [[ "x${TERRASCAN_VERBOSE}" != "x" ]]; then echo "--verbose"; fi) |
   tee "$scan_results"
-terrascan_exit_code=$?
+terrascan_exit_code="${PIPESTATUS[0]}"
 
 echo "::set-output name=terrascan-results::$(cat <"$scan_results" | jq -r -c '.')" # Convert to a single line
 echo "::set-output name=terrascan-exit-code::${terrascan_exit_code}"
