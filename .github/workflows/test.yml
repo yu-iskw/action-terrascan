@@ -29,6 +29,12 @@ jobs:
           echo '${{ steps.test-scan.outputs.terrascan-results-rdjson }}' | jq -r '.'
           echo '${{ steps.test-scan.outputs.terrascan-exit-code }}'
           echo '${{ steps.test-scan.outputs.reviewdog-exit-code }}'
+      - name: "Assert terrascan-exit-code"
+        if: steps.test-scan.outputs.terrascan-exit-code == 0
+        shell: bash
+        run: |
+          echo "terrascan-exit-code is not 0"
+          exit 1
 
   test-pr-check:
     if: github.event_name == 'pull_request'
