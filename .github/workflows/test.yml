@@ -14,6 +14,7 @@ jobs:
       - uses: actions/checkout@v2
       - uses: ./
         id: test-scan
+        continue-on-error: true
         with:
           github_token: ${{ secrets.github_token }}
           working-directory: testdata/terraform/
@@ -43,6 +44,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: ./
+        continue-on-error: true
         id: test-scan
         with:
           github_token: ${{ secrets.github_token }}
@@ -90,6 +92,9 @@ jobs:
           echo '${{ steps.test-scan.outputs.terrascan-results-rdjson }}' | jq -r '.'
           echo '${{ steps.test-scan.outputs.terrascan-exit-code }}'
           echo '${{ steps.test-scan.outputs.reviewdog-exit-code }}'
-      - name: check the exit code
-        if: ${{ !success() }}
-        run: echo 'The previous step should fail' && exit 1
+      - name: check the number of violations
+        if: ${{ steps.test-scan.outputs.terrascan-violations-count == '0' }}
+        shell: bash
+        run: |
+          echo "The number of violations must be more than 1."
+          exit 1
