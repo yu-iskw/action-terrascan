@@ -1,0 +1,13 @@
+{
+    "name": "rolesOwner",
+    "file": "roles_owner.rego",
+    "policy_type": "gcp",
+    "resource_type": "google_project_iam_member",
+    "template_args": null,
+    "severity": "HIGH",
+    "description": "Ensure that IAM users are not assigned the 'roles/owner.client' at project level.",
+    "reference_id": "AC.gcp.IAM.custom.001",
+    "category": "Identity and Access Management",
+    "version": 1,
+    "id": "AC_gcp_IAM_custom_001"
+}

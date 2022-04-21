@@ -36,6 +36,7 @@ terrascan scan \
   $(if [[ "x${TERRASCAN_LOG_LEVEL}" != "x" ]]; then echo "--log-level ${TERRASCAN_LOG_LEVEL}"; fi) \
   $(if [[ "x${TERRASCAN_IAC_DIR}" != "x" ]]; then echo "--iac-dir ${TERRASCAN_IAC_DIR}"; fi) \
   $(if [[ "x${TERRASCAN_IAC_TYPE}" != "x" ]]; then echo "--iac-type ${TERRASCAN_IAC_TYPE}"; fi) \
+  $(if [[ "x${TERRASCAN_POLICY_PATH}" != "x" ]]; then echo "--policy-path ${TERRASCAN_POLICY_PATH}"; fi) \
   $(if [[ "x${TERRASCAN_POLICY_TYPE}" != "x" ]]; then echo "--policy-type ${TERRASCAN_POLICY_TYPE}"; fi) \
   $(if [[ "x${TERRASCAN_REMOTE_TYPE}" != "x" ]]; then echo "--remote-type ${TERRASCAN_REMOTE_TYPE}"; fi) \
   $(if [[ "x${TERRASCAN_REMOTE_URL}" != "x" ]]; then echo "--remote-url ${TERRASCAN_REMOTE_URL}"; fi) \
