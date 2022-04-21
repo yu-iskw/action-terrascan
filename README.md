@@ -41,8 +41,8 @@ inputs:
   filter-mode:
     description: |
       Filtering mode for the reviewdog command [added,diff_context,file,nofilter].
-      Default is added.
-    default: 'added'
+      Default is file.
+    default: 'file'
     required: false
   fail-on-error:
     description: |
@@ -80,6 +80,13 @@ inputs:
     default: ''
   terrascan-iac-version:
     description: 'iac version (helm: v3, k8s: v1, kustomize: v3, terraform: v12, v13, v14, tfplan: v1)'
+    required: false
+    default: ''
+  terrascan-policy-path:
+    description: |
+      A policy path directory
+      NOTE: When the issue will be resolved, we will think of how to receive multiple paths.
+      https://github.com/accurics/terrascan/issues/1079
     required: false
     default: ''
   terrascan-policy-type:

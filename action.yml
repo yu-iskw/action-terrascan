@@ -66,6 +66,13 @@ inputs:
     description: 'iac version (helm: v3, k8s: v1, kustomize: v3, terraform: v12, v13, v14, tfplan: v1)'
     required: false
     default: ''
+  terrascan-policy-path:
+    description: |
+      A policy path directory
+      NOTE: When the issue will be resolved, we will think of how to receive multiple paths.
+      https://github.com/accurics/terrascan/issues/1079
+    required: false
+    default: ''
   terrascan-policy-type:
     description: 'policy type (all, aws, azure, gcp, github, k8s)'
     required: false
@@ -141,6 +148,7 @@ runs:
         TERRASCAN_LOG_LEVEL: ${{ inputs.terrascan-log-level }}
         TERRASCAN_IAC_DIR: ${{ inputs.terrascan-iac-dir }}
         TERRASCAN_IAC_TYPE: ${{ inputs.terrascan-iac-type }}
+        TERRASCAN_POLICY_PATH: ${{ inputs.terrascan-policy-path }}
         TERRASCAN_POLICY_TYPE: ${{ inputs.terrascan-policy-type }}
         TERRASCAN_REMOTE_TYPE: ${{ inputs.terrascan-remote-type }}
         TERRASCAN_REMOTE_URL: ${{ inputs.terrascan-remote-url }}

@@ -77,6 +77,12 @@ jobs:
           level: error
           terrascan-iac-type: terraform
           terrascan-severity: LOW
+          terrascan-policy-path: "${{ github.workspace }}/testdata/policy"
+      - name: "Test custom rules"
+        shell: bash
+        working-directory: "${{ github.workspace }}/testdata"
+        run: |
+          bash test_custom_rules.sh
       - name: "Test outputs"
         shell: bash
         run: |
