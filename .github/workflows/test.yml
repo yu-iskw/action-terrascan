@@ -90,6 +90,9 @@ jobs:
           echo '${{ steps.test-scan.outputs.terrascan-results-rdjson }}' | jq -r '.'
           echo '${{ steps.test-scan.outputs.terrascan-exit-code }}'
           echo '${{ steps.test-scan.outputs.reviewdog-exit-code }}'
-      - name: check the exit code
-        if: ${{ !success() }}
-        run: echo 'The previous step should fail' && exit 1
+      - name: check the exit code of the action
+        if: ${{ steps.test-scan.outcome != 'failure' }}
+        shell: bash
+        run: |
+          echo "The action should be failed."
+          exit 1
