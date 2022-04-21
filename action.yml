@@ -110,6 +110,9 @@ outputs:
   terrascan-results:
     description: 'The JSON object string of terrascan results'
     value: ${{ steps.terrascan-with-reviewdog-in-composite.outputs.terrascan-results }}
+  terrascan-violations-count:
+    description: 'The number of violations'
+    value: ${{ steps.terrascan-with-reviewdog-in-composite.outputs.terrascan-violations-count }}
   terrascan-exit-code:
     description: 'The exit code of terrascan'
     value: ${{ steps.terrascan-with-reviewdog-in-composite.outputs.terrascan-exit-code }}

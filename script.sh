@@ -48,7 +48,12 @@ terrascan scan \
   tee "$scan_results"
 terrascan_exit_code="${PIPESTATUS[0]}"
 
-echo "::set-output name=terrascan-results::$(cat <"$scan_results" | jq -r -c '.')" # Convert to a single line
+# Convert to a single line
+echo "::set-output name=terrascan-results::$(cat <"$scan_results" | jq -r -c '.')"
+# The number of violations
+violations_count="$(cat <"$scan_results" | jq -r '.results.violations | length')"
+echo "::set-output name=terrascan-violations-count::${violations_count}"
+# Terrascan exit code
 echo "::set-output name=terrascan-exit-code::${terrascan_exit_code}"
 
 set -Eeuo pipefail
@@ -80,6 +85,6 @@ set -Eeuo pipefail
 echo '::endgroup::'
 
 # exit
-if [[ "x${ONLY_WARN}" != "x" && ("$terrascan_exit_code" != "0" || "$reviewdog_return_code" != "0") ]]; then
+if [[ "x${ONLY_WARN}" == "x" && "${violations_count}" != "0" ]]; then
   exit 1
 fi
