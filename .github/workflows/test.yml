@@ -92,9 +92,9 @@ jobs:
           echo '${{ steps.test-scan.outputs.terrascan-results-rdjson }}' | jq -r '.'
           echo '${{ steps.test-scan.outputs.terrascan-exit-code }}'
           echo '${{ steps.test-scan.outputs.reviewdog-exit-code }}'
-      - name: check the exit code of the action
-        if: ${{ steps.test-scan.outcome != 'failure' }}
+      - name: check the number of violations
+        if: ${{ steps.test-scan.outputs.terrascan-violations-count == '0' }}
         shell: bash
         run: |
-          echo "The action should be failed."
+          echo "The number of violations must be more than 1."
           exit 1
