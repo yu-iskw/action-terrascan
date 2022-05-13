@@ -17,7 +17,7 @@ echo '::group::Installing terrascan ...'
 # Download and install terrascan
 version="${TERRASCAN_VERSION:?}"
 platform="${TERRASCAN_PLATFORM:?}"
-curl -L "$(curl -s https://api.github.com/repos/accurics/terrascan/releases/"${version}" | grep -o -E "https://.+?_${platform}.tar.gz")" >terrascan.tar.gz
+curl -L "$(curl -s https://api.github.com/repos/tenable/terrascan/releases/"${version}" | grep -o -E "https://.+?_${platform}.tar.gz")" >terrascan.tar.gz
 tar -xf terrascan.tar.gz terrascan && rm terrascan.tar.gz
 install terrascan /usr/local/bin && rm terrascan
 echo "terrascan is installed at $(which terrascan)."
