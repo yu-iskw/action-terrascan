@@ -49,12 +49,12 @@ terrascan scan \
 terrascan_exit_code="${PIPESTATUS[0]}"
 
 # Convert to a single line
-echo "terrascan-results=$(cat <"$scan_results" | jq -r -c '.')" >> $GITHUB_STATE
+echo "terrascan-results=$(cat <"$scan_results" | jq -r -c '.')" >> "$GITHUB_STATE"
 # The number of violations
 violations_count="$(cat <"$scan_results" | jq -r '.results.violations | length')"
-echo "terrascan-violations-count=${violations_count}" >> $GITHUB_STATE
+echo "terrascan-violations-count=${violations_count}" >> "$GITHUB_STATE"
 # Terrascan exit code
-echo "terrascan-exit-code=${terrascan_exit_code}" >> $GITHUB_STATE
+echo "terrascan-exit-code=${terrascan_exit_code}" >> "$GITHUB_STATE"
 
 set -Eeuo pipefail
 echo '::endgroup::'
@@ -78,8 +78,8 @@ cat <"$scan_results_rdjson" |
     -filter-mode="${REVIEWDOG_FILTER_MODE}"
 
 reviewdog_return_code="${PIPESTATUS[1]}"
-echo "terrascan-results-rdjson=$(cat <"$scan_results_rdjson" | jq -r -c '.')" >> $GITHUB_STATE  # Convert to a single line
-echo "reviewdog-return-code=${reviewdog_return_code}" >> $GITHUB_STATE
+echo "terrascan-results-rdjson=$(cat <"$scan_results_rdjson" | jq -r -c '.')" >> "$GITHUB_STATE"  # Convert to a single line
+echo "reviewdog-return-code=${reviewdog_return_code}" >> "$GITHUB_STATE"
 
 set -Eeuo pipefail
 echo '::endgroup::'
